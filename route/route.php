@@ -17,6 +17,14 @@ Route::get('hello/:name', 'index/hello');
 
 Route::get('index/test2', 'index/test2');
 
+Route::get('index/redis', 'index/redis');
+Route::get('index/getredis', 'index/getredis');
+Route::get('index/test', 'index/test');
+
+Route::get('tredis/test', 'tredis/test');
+
+Route::get('news/test', 'news/test');
+
 return [
 
 ];

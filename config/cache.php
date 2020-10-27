@@ -15,7 +15,8 @@
 
 return [
     // 驱动方式
-    'type'   => 'File',
+//    'type'   => 'File',
+    'type'   => 'Redis',
     // 缓存保存目录
     'path'   => '',
     // 缓存前缀

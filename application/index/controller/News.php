@@ -23,16 +23,19 @@ class News
         ));
 
         $select = Request\Select::factory()
-            ->setQuery('*:*');
-
-//        ->setStart(0)
+//            ->setQuery('*:*')
+//            ->setQuery('title:华士');
+            ->setQuery('desc:可乐');
+//            ->setStart(0)
 //            ->setRows(10)
-//        ;
+        ;
 
         $response = $select->sendRequest($solr);
+
         $nums =  $response->numFound();
 
-        return json($nums);
+//        return json($response);
+        return json($response['response']['docs']);
 
 //        return 'news-index';
     }

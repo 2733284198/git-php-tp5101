@@ -23,7 +23,9 @@ Route::get('index/test', 'index/test');
 
 Route::get('tredis/test', 'tredis/test');
 
+Route::get('news/index', 'news/index');
 Route::get('news/test', 'news/test');
+Route::get('news/psolr', 'news/psolr');
 
 return [
 

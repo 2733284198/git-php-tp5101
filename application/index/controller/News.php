@@ -3,12 +3,38 @@
 
 namespace app\index\controller;
 
+use PSolr\Client\SolrClient;
+use PSolr\Request as Request;
 
 class News
 {
     public function index()
     {
         return 'news-index';
+    }
+
+    public function psolr()
+    {
+
+// Connect to a Solr server.
+        $solr = SolrClient::factory(array(
+            'base_url' => 'http://localhost:8983', // defaults to "http://localhost:8983"
+            'base_path' => '/solr/product',           // defaults to "/solr"
+        ));
+
+        $select = Request\Select::factory()
+            ->setQuery('*:*');
+
+//        ->setStart(0)
+//            ->setRows(10)
+//        ;
+
+        $response = $select->sendRequest($solr);
+        $nums =  $response->numFound();
+
+        return json($nums);
+
+//        return 'news-index';
     }
 
     public function test()

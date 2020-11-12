@@ -4,12 +4,16 @@
 namespace app\index\controller;
 
 use PSolr\Client\SolrClient;
-use PSolr\Request as Request;
+use PSolr\Request as SolrRequest;
+use think\Db;
 
 class News
 {
     public function index()
     {
+        $res = DB::name("t1")->select();
+        var_dump($res);
+
         return 'news-index';
     }
 
@@ -22,7 +26,7 @@ class News
             'base_path' => '/solr/product',           // defaults to "/solr"
         ));
 
-        $select = Request\Select::factory()
+        $select = SolrRequest\Select::factory()
 //            ->setQuery('*:*')
 //            ->setQuery('title:华士');
             ->setQuery('desc:可乐');
@@ -39,6 +43,21 @@ class News
 
 //        return 'news-index';
     }
+
+    public function psolrdel()
+    {
+        $solr = SolrClient::factory(array(
+            'base_url' => 'http://localhost:8983', // defaults to "http://localhost:8983"
+            'base_path' => '/solr/product',           // defaults to "/solr"
+        ));
+
+        $response = \PSolr\Request\Delete::factory()
+            ->addId('3')
+            ->sendRequest($solr)
+        ;
+
+    }
+
 
     public function test()
     {

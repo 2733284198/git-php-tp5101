@@ -1,4 +1,5 @@
 <?php
+
 namespace app\index\controller;
 
 use think\Controller;
@@ -8,7 +9,7 @@ use think\Db;
 //class Index extends Controller
 class Index extends Base
 {
-    public  $redis;
+    public $redis;
 //    public function initialize()
 //    {
 //        var_dump('Index initialize' );
@@ -38,6 +39,7 @@ class Index extends Base
 //        $path = request()->getModulePath();
 //        var_dump($path);
 
+        $this->mycat_insert();
         $this->getmycat();
 
         return 'index-index';
@@ -45,6 +47,8 @@ class Index extends Base
 
     public function getmycat()
     {
+        echo 'index-getmycat<br>';
+
         $res = DB::name("tt1")->select();
         var_dump($res);
 
@@ -54,7 +58,25 @@ class Index extends Base
         $res = DB::name("tt3")->select();
         var_dump($res);
 
-        return 'index-getmycat';
+        echo 'index-getmycat<br>';
+    }
+
+    public function mycat_insert()
+    {
+        echo 'index-mycat_insert<br>';
+
+        $content = [
+            'title' => 'tt1-2',
+            'content' => 'tt1-2',
+        ];
+
+        $insertID = Db::name('tt1')->insertGetId($content);
+        var_dump($insertID);
+
+        $sql = Db::name('tt1')->getLastSql();
+        var_dump($sql);
+
+        echo 'index-mycat_insert<br>';
     }
 
     public function hello($name = 'ThinkPHP5')
@@ -74,7 +96,7 @@ class Index extends Base
             'age' => 12
         ];
 
-        $cache =  \Cache::set("tp-t1", $arr);
+        $cache = \Cache::set("tp-t1", $arr);
         print_r($cache);
 
         return 'redis';
@@ -82,7 +104,7 @@ class Index extends Base
 
     public function getredis()
     {
-        $cache =  \Cache::get("tp-t1");
+        $cache = \Cache::get("tp-t1");
 
         echo 'get-redis:<br>====';
         print_r($cache);
@@ -97,18 +119,18 @@ class Index extends Base
 
         // set操作
         $redis->connect('127.0.0.1', 6379);
-        var_dump($redis->getHost() );
+        var_dump($redis->getHost());
 
         $this->hashget();
 
-        $redis->zAdd("zset1", 100 , "xiaowang");
-        $redis->zAdd("zset1", 90 , "xiaohong");
-        $redis->zAdd("zset1", 95 , "xiaoyong");
+        $redis->zAdd("zset1", 100, "xiaowang");
+        $redis->zAdd("zset1", 90, "xiaohong");
+        $redis->zAdd("zset1", 95, "xiaoyong");
 
-        $val = $redis->zRange("zset1", 0 , -1);
+        $val = $redis->zRange("zset1", 0, -1);
         var_dump($val);
 
-        $val = $redis->zRevRange("zset1", 0 , -1);
+        $val = $redis->zRevRange("zset1", 0, -1);
         var_dump($val);
     }
 
@@ -129,11 +151,11 @@ class Index extends Base
 
 //        $this->hashget();
 
-        $person = $redis->hMGet("person", ["name", "age"]  );
+        $person = $redis->hMGet("person", ["name", "age"]);
         $redis->hIncrBy("person", "age", 20);
 
 //        $person = $redis->hGet("person", "name" );
-        $person = $redis->hMGet("person", ["name", "age"]  );
+        $person = $redis->hMGet("person", ["name", "age"]);
         var_dump($person);
     }
 
@@ -163,9 +185,9 @@ class Index extends Base
         dump($arguments);
 
         $res = [
-          'status' => 0,
-          'message' => '找不到该方法',
-          'status' => null
+            'status' => 0,
+            'message' => '找不到该方法',
+            'status' => null
 
         ];
 

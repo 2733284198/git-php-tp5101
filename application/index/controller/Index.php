@@ -3,6 +3,7 @@ namespace app\index\controller;
 
 use think\Controller;
 use app\index\controller\Base;
+use think\Db;
 
 //class Index extends Controller
 class Index extends Base
@@ -37,7 +38,23 @@ class Index extends Base
 //        $path = request()->getModulePath();
 //        var_dump($path);
 
+        $this->getmycat();
+
         return 'index-index';
+    }
+
+    public function getmycat()
+    {
+        $res = DB::name("tt1")->select();
+        var_dump($res);
+
+        $res = DB::name("tt2")->select();
+        var_dump($res);
+
+        $res = DB::name("tt3")->select();
+        var_dump($res);
+
+        return 'index-getmycat';
     }
 
     public function hello($name = 'ThinkPHP5')

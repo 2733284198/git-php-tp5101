@@ -15,7 +15,8 @@ return [
     // 服务器地址
     'hostname'        => '192.168.88.14',
     // 数据库名
-    'database'        => 'mycat_testdb',
+//    'database'        => 'mycat_testdb',
+    'database'        => 'TESTDB',
     // 用户名
     'username'        => 'root',
     // 密码

@@ -2,6 +2,7 @@
 
 namespace app\index\controller;
 
+use MongoDB\Driver\Query;
 use think\Controller;
 use app\index\controller\Base;
 use think\Db;
@@ -39,44 +40,132 @@ class Index extends Base
 //        $path = request()->getModulePath();
 //        var_dump($path);
 
-        $this->mycat_insert();
-        $this->getmycat();
+//        $this->getmycat_t1();
+        $this->getmycat_orders();
+        $this->mycat_ordersinsert();
+        $this->getmycat_orders();
+
+//        $this->mycat_insert();
+//        $this->getmycat_db21();
+
+//        $this->getmycat_db22();
 
         return 'index-index';
     }
 
-    public function getmycat()
+    public function getmycat_orders()
+    {
+        echo 'index-getmycat_orders<br><hr>';
+
+//        $res = DB::name("tt1")->select();
+//        $res = db::query("select * from tt1   limit 5");
+        $res = Db::query("select * from orders");
+        var_dump($res);
+
+
+    }
+
+    public function mycat_ordersinsert()
+    {
+        echo 'index-mycat_insert<br><hr>';
+
+        $content = [
+//            'id' => 'next value for MYCATSEQ_COMPANY',
+            'id' => '"next value for MYCATSEQ_GLOBAL"',
+
+//            "id"=>"next value for MYCATSEQ_GLOBAL",
+            'title' => 'tp51-t1',
+        ];
+        $sql = " insert into orders(id,title)values(next value for MYCATSEQ_GLOBAL,'tp-93')";
+
+        $res =  Db::query($sql);
+
+        var_dump($res);
+
+        // tt1
+//        $insertID = Db::name('orders')->insertGetId($content);
+//        var_dump($insertID);
+
+        $sql = Db::name('orders')->getLastSql();
+        var_dump($sql);
+    }
+
+    public function getmycat_t1()
     {
         echo 'index-getmycat<br>';
 
-        $res = DB::name("tt1")->select();
+//        $res = DB::name("tt1")->select();
+//        $res = db::query("select * from tt1   limit 5");
+        $res = db::query("select * from t1 ");
         var_dump($res);
 
-        $res = DB::name("tt2")->select();
+    }
+
+    public function getmycat_db22()
+    {
+        echo 'index-getmycat_db22<br>';
+
+        $res = DB::name("tt21")->limit(5);
         var_dump($res);
 
-        $res = DB::name("tt3")->select();
+        $res = DB::name("tt22")->limit(5);
         var_dump($res);
+
+        $res = DB::name("tt23")->limit(5);
+        var_dump($res);
+
+        echo 'index-getmycat_db22<br>';
+    }
+
+    public function getmycat_db21()
+    {
+        echo 'index-getmycat<br>';
+
+//        $res = DB::name("tt1")->select();
+//        $res = db::query("select * from tt1   limit 5");
+        $res = db::query("select * from tt1 ");
+        var_dump($res);
+
+//        $res = DB::name("tt2")->select();
+//        var_dump($res);
+
+//        $res = DB::name("tt3")->select();
+//        var_dump($res);
 
         echo 'index-getmycat<br>';
     }
 
     public function mycat_insert()
     {
-        echo 'index-mycat_insert<br>';
+        echo 'index-mycat_insert<br><hr>';
 
         $content = [
             'title' => 'tt1-2',
             'content' => 'tt1-2',
         ];
 
+        // tt1
         $insertID = Db::name('tt1')->insertGetId($content);
         var_dump($insertID);
 
         $sql = Db::name('tt1')->getLastSql();
         var_dump($sql);
 
-        echo 'index-mycat_insert<br>';
+        // tt2
+        $insertID = Db::name('tt2')->insertGetId($content);
+        var_dump($insertID);
+
+        $sql = Db::name('tt2')->getLastSql();
+        var_dump($sql);
+
+        // tt3
+        $insertID = Db::name('tt3')->insertGetId($content);
+        var_dump($insertID);
+
+        $sql = Db::name('tt3')->getLastSql();
+        var_dump($sql);
+
+        echo 'index-mycat_insert<br><hr>';
     }
 
     public function hello($name = 'ThinkPHP5')
